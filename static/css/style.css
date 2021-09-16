@@ -1,0 +1,80 @@
+/* ============================== Global ============================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,300;1,300&display=swap');
+
+:root {
+    --main: #eba510;
+    --light-black: #444;
+    --white: #fff;
+    --dark-grey: #666;
+    --light-grey: #eee;
+    --dark-blue: #192a56;
+    --box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.1);
+}
+
+* {
+    font-family: 'Source Sans Pro', sans-serif;
+    margin: 0;
+    padding: 0;
+    text-decoration: none !important;
+    outline: none;
+    border: none;
+    text-transform: capitalize;
+    transition: all 0.2s linear;
+}
+
+
+*::selection {
+    background: var(--main);
+    color: var(--white);
+}
+
+html {
+    /* font-size: 62.5%; */
+    overflow-x: hidden;
+    scroll-padding-top: 6rem;
+    scroll-behavior: smooth;
+}
+
+html::-webkit-scrollbar {
+    width: 0.8rem;
+}
+
+html::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+html::-webkit-scrollbar-thumb {
+    background: var(--main);
+}
+
+.navbar-brand {
+    color: var(--main) !important;
+}
+
+.navbar-dark .navbar-toggler:hover {
+    border-color: var(--main);
+}
+
+.note-update-time {
+    font-size: 12px;
+    color: #666;
+    text-transform: none;
+}
+
+.bxs-trash,
+.bxs-volume-full {
+    color: #666;
+    font-size: 27px;
+}
+
+.bxs-trash:hover,
+.bxs-volume-full:hover {
+    cursor: pointer;
+    color: #dc3545;
+    transform: scale(1.09);
+}
+
+input {
+    text-transform: none;
+}

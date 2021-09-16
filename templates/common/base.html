@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" class="h-100">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="An Vo">
+    <title>Apollo Education {% block title %}{% endblock title %}</title>
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{% static 'images/icon.ico' %}" type="image/x-icon">
+    <link rel="icon" href="{% static 'images/icon.ico' %}" type="image/x-icon">
+
+    <!-- Box Icons -->
+    <link href='https://unpkg.com/boxicons@2.0.9/css/boxicons.min.css' rel='stylesheet'>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- My CSS  -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}?{% now 'U' %}">
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+
+        main>.container {
+            padding: 60px 15px 0;
+        }
+    </style>
+</head>
+
+<body class="d-flex flex-column h-100">
+    <!-- Header section starts -->
+    {% include 'common/header.html' %}
+    <!-- header section ends -->
+
+    <!-- Main section starts  -->
+    <main class="flex-shrink-0">
+        <div class="container">
+            <div class="mt-4">
+                {% block content %}{% endblock content %}
+            </div>
+        </div>
+    </main>
+    <!-- Main section ends -->
+
+    <!-- Footer section starts  -->
+    {% include 'common/footer.html' %}
+    <!-- Footer section ends -->
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- My JS file  -->
+    <script type="text/javascript" src="{% static 'js/script.js' %}?{% now 'U' %}"></script>
+</body>
+
+</html>

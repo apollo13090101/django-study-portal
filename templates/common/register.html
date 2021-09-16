@@ -1,0 +1,104 @@
+{% extends 'common/base.html' %}
+{% block title %}- Sign up{% endblock title %}
+{% block content %}
+<style>
+    .card-footer a {
+        color: #333;
+        font-weight: bold;
+    }
+
+    .card-footer a:hover {
+        color: #eba510;
+    }
+
+    .card-body .btn {
+        color: #fff;
+        background-color: #333;
+    }
+
+    .card-body .btn:hover {
+        color: #333;
+        background-color: #eba510;
+    }
+</style>
+
+<script>
+    function checkPassword() {
+        if (document.signup.pwd.value !== document.signup.cpwd.value) {
+            alert('Password and Confirm Password do not match.');
+            document.signup.cpwd.focus();
+            return false;
+        }
+        return true;
+    }
+</script>
+
+<div class="row justify-content-center">
+    <div class="card shadow rounded">
+        <div class="card-header text-center bg-dark">
+            <h4 class="text-white">Register to Join us</h4>
+        </div>
+        <div class="card-body">
+            <form method="post" action="" name="signup" onsubmit="return checkPassword();">
+                {% csrf_token %}
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="exampleInputLN1">Last Name</label>
+                        <input name="lname" type="text" class="form-control" id="exampleInputLN1"
+                            placeholder="Enter last name..." required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="exampleInputFN1">First Name</label>
+                        <input name="fname" type="text" class="form-control" id="exampleInputFN1"
+                            placeholder="Enter first name..." required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="exampleInputUsername1">Username</label>
+                        <input name="uname" type="text" class="form-control" id="exampleInputUsername1"
+                            placeholder="Enter username..." required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-12">
+                        <label for="exampleInputEmail1">Email</label>
+                        <input name="email" type="email" class="form-control" id="exampleInputEmail1"
+                            placeholder="Ex: abc@gmail.com" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="exampleInputPwd1">Password</label>
+                        <input name="pwd" type="password" class="form-control" id="exampleInputPwd1"
+                            placeholder="Enter password..." required>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="exampleInputCpwd1">Confirm Password</label>
+                        <input name="cpwd" type="password" class="form-control" id="exampleInputCpwd1"
+                            placeholder="Enter password again..." required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-block">Register</button>
+            </form>
+        </div>
+        <div class="card-footer">
+            Already have an account? <br>
+            <a href="{% url 'login' %}">Sign in here</a>
+        </div>
+    </div>
+</div>
+
+{% ifequal error "no" %}
+<script>
+    alert("Succesfully signed up")
+    window.location = ("{% url 'login' %}");
+</script>
+{% endifequal %}
+
+{% ifequal error "yes" %}
+<script>
+    alert("Something went wrong. Try again...");
+</script>
+{% endifequal %}
+{% endblock %}

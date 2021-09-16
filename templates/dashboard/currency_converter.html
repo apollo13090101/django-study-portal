@@ -1,0 +1,230 @@
+{% extends 'common/base.html' %}
+{% block title %}- Currency Converter{% endblock title %}
+{% block content %}
+<style>
+    .form-group .bx-transfer {
+        transform: rotate(90deg);
+        font-size: 1.3rem;
+        color: teal;
+    }
+
+    .form-group .bx-transfer:hover {
+        cursor: pointer;
+        color: #eba510;
+    }
+</style>
+
+<a href="{% url 'converter' %}" class="bx bx-arrow-back text-dark"> Back to converters</a>
+<hr class="my-4">
+
+<div class='text-center'>
+    <h2>Currency Converter</h2>
+
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form method="" action="" name="">
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <select class="custom-select" id="from_currency" required>
+                            <option value="AED">AED</option>
+                            <option value="ARS">ARS</option>
+                            <option value="AUD">AUD</option>
+                            <option value="BGN">BGN</option>
+                            <option value="BRL">BRL</option>
+                            <option value="BSD">BSD</option>
+                            <option value="CAD">CAD</option>
+                            <option value="CHF">CHF</option>
+                            <option value="CLP">CLP</option>
+                            <option value="CNY">CNY</option>
+                            <option value="COP">COP</option>
+                            <option value="CZK">CZK</option>
+                            <option value="DKK">DKK</option>
+                            <option value="DOP">DOP</option>
+                            <option value="EGP">EGP</option>
+                            <option value="EUR">EUR</option>
+                            <option value="FJD">FJD</option>
+                            <option value="GBP">GBP</option>
+                            <option value="GTQ">GTQ</option>
+                            <option value="HKD">HKD</option>
+                            <option value="HRK">HRK</option>
+                            <option value="HUF">HUF</option>
+                            <option value="IDR">IDR</option>
+                            <option value="ILS">ILS</option>
+                            <option value="INR">INR</option>
+                            <option value="ISK">ISK</option>
+                            <option value="JPY">JPY</option>
+                            <option value="KRW">KRW</option>
+                            <option value="KZT">KZT</option>
+                            <option value="MXN">MXN</option>
+                            <option value="MYR">MYR</option>
+                            <option value="NOK">NOK</option>
+                            <option value="NZD">NZD</option>
+                            <option value="PAB">PAB</option>
+                            <option value="PEN">PEN</option>
+                            <option value="PHP">PHP</option>
+                            <option value="PKR">PKR</option>
+                            <option value="PLN">PLN</option>
+                            <option value="PYG">PYG</option>
+                            <option value="RON">RON</option>
+                            <option value="RUB">RUB</option>
+                            <option value="SAR">SAR</option>
+                            <option value="SEK">SEK</option>
+                            <option value="SGD">SGD</option>
+                            <option value="THB">THB</option>
+                            <option value="TRY">TRY</option>
+                            <option value="TWD">TWD</option>
+                            <option value="UAH">UAH</option>
+                            <option value="USD" selected>USD</option>
+                            <option value="UYU">UYU</option>
+                            <option value="VND">VND</option>
+                            <option value="ZAR">ZAR</option>
+                        </select>
+                    </div>
+                    <div class=" form-group col-md-8">
+                        <input name="from_amount" type="number" class="form-control" id="from_amount" value="1"
+                            oninput="currencyConverter()" onchange="currencyConverter()">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-12 justify-content-between">
+                        <button id="exchange" class="mr-2" style="display: inline-block; background: none;">
+                            <i class='bx bx-transfer'></i>
+                        </button>
+                        <span class="rate" id="rate" style="display: inline-block;"></span>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group col-md-4">
+                        <select class="custom-select" id="to_currency" required>
+                            <option value="AED">AED</option>
+                            <option value="ARS">ARS</option>
+                            <option value="AUD">AUD</option>
+                            <option value="BGN">BGN</option>
+                            <option value="BRL">BRL</option>
+                            <option value="BSD">BSD</option>
+                            <option value="CAD">CAD</option>
+                            <option value="CHF">CHF</option>
+                            <option value="CLP">CLP</option>
+                            <option value="CNY">CNY</option>
+                            <option value="COP">COP</option>
+                            <option value="CZK">CZK</option>
+                            <option value="DKK">DKK</option>
+                            <option value="DOP">DOP</option>
+                            <option value="EGP">EGP</option>
+                            <option value="EUR">EUR</option>
+                            <option value="FJD">FJD</option>
+                            <option value="GBP">GBP</option>
+                            <option value="GTQ">GTQ</option>
+                            <option value="HKD">HKD</option>
+                            <option value="HRK">HRK</option>
+                            <option value="HUF">HUF</option>
+                            <option value="IDR">IDR</option>
+                            <option value="ILS">ILS</option>
+                            <option value="INR">INR</option>
+                            <option value="ISK">ISK</option>
+                            <option value="JPY">JPY</option>
+                            <option value="KRW">KRW</option>
+                            <option value="KZT">KZT</option>
+                            <option value="MXN">MXN</option>
+                            <option value="MYR">MYR</option>
+                            <option value="NOK">NOK</option>
+                            <option value="NZD">NZD</option>
+                            <option value="PAB">PAB</option>
+                            <option value="PEN">PEN</option>
+                            <option value="PHP">PHP</option>
+                            <option value="PKR">PKR</option>
+                            <option value="PLN">PLN</option>
+                            <option value="PYG">PYG</option>
+                            <option value="RON">RON</option>
+                            <option value="RUB">RUB</option>
+                            <option value="SAR">SAR</option>
+                            <option value="SEK">SEK</option>
+                            <option value="SGD">SGD</option>
+                            <option value="THB">THB</option>
+                            <option value="TRY">TRY</option>
+                            <option value="TWD">TWD</option>
+                            <option value="UAH">UAH</option>
+                            <option value="USD">USD</option>
+                            <option value="UYU">UYU</option>
+                            <option value="VND" selected>VND</option>
+                            <option value="ZAR">ZAR</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-8">
+                        <input name="to_amount" type="number" class="form-control" id="to_amount"
+                            oninput="currencyConverter()" onchange="currencyConverter()">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    let from_currency = document.getElementById('from_currency');
+    let to_currency = document.getElementById('to_currency');
+    let from_amount = document.getElementById('from_amount');
+    let to_amount = document.getElementById('to_amount');
+    let rate = document.getElementById('rate');
+    let api_key = 'd4c5e3a5d80e46ed71f70cd1';
+    let exchange = document.getElementById('exchange');
+
+    let currencyConverter = () => {
+
+        fetch(`https://v6.exchangerate-api.com/v6/${api_key}/latest/${from_currency.value}`)
+            .then(res => res.json())
+            .then(res => {
+                let returned_rate = res.conversion_rates[to_currency.value];
+                returned_rate = parseFloat(returned_rate);
+                rate.innerText = `1 ${from_currency.value}  =  ${returned_rate} ${to_currency.value}`
+                to_amount.value = (from_amount.value * returned_rate).toFixed(2);
+            })
+    }
+
+    currencyConverter();
+
+    exchange.addEventListener('click', () => {
+        const temp = from_currency.value;
+        from_currency.value = to_currency.value;
+        to_currency.value = temp;
+        currencyConverter();
+    });
+
+
+
+    // let from_currencyEl = document.getElementById('from_currency');
+    // let from_ammountEl = document.getElementById('from_ammount');
+    // let to_currencyEl = document.getElementById('to_currency');
+    // let to_ammountEl = document.getElementById('to_ammount');
+    // let rateEl = document.getElementById('rate');
+    // let exchange = document.getElementById('exchange');
+
+    // from_currencyEl.addEventListener('change', calculate);
+    // from_ammountEl.addEventListener('input', calculate);
+    // to_currencyEl.addEventListener('change', calculate);
+    // to_ammountEl.addEventListener('input', calculate);
+
+    // exchange.addEventListener('click', () => {
+    //     let temp = from_currencyEl.value;
+    //     from_currencyEl.value = to_currencyEl.value;
+    //     to_currencyEl.value = temp;
+    //     calculate();
+    // });
+
+    // function calculate() {
+    //     let from_currency = from_currencyEl.value;
+    //     let to_currency = to_currencyEl.value;
+
+    //     fetch(`https://api.exchangerate-api.com/v4/latest/${from_currency}`)
+    //         .then(res => res.json())
+    //         .then(res => {
+    //             let rate = res.rates[to_currency];
+    //             rateEl.innerText = `1 ${from_currency} = ${rate} ${to_currency}`
+    //             to_ammountEl.value = (from_ammountEl.value * rate).toFixed(2);
+    //         })
+    // }
+
+    // calculate();
+</script>
+
+{% endblock content%}

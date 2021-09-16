@@ -1,0 +1,356 @@
+{% extends 'common/base.html' %}
+{% block title %}- Unit Converter{% endblock title %}
+{% block content %}
+<style>
+    .form-group input {
+        font-size: 1.2rem;
+        color: teal;
+        font-weight: bold;
+    }
+</style>
+
+<a href="{% url 'converter' %}" class="bx bx-arrow-back text-dark"> Back to converters</a>
+<hr class="my-4">
+
+<ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item" role="presentation">
+        <a class="nav-link active" id="weight-tab" data-toggle="tab" href="#weight" role="tab" aria-controls="weight"
+            aria-selected="true">weight</a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" id="temperature-tab" data-toggle="tab" href="#temperature" role="tab"
+            aria-controls="temperature" aria-selected="false">temperature</a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" id="length-tab" data-toggle="tab" href="#length" role="tab" aria-controls="length"
+            aria-selected="false">length</a>
+    </li>
+    <li class="nav-item" role="presentation">
+        <a class="nav-link" id="speed-tab" data-toggle="tab" href="#speed" role="tab" aria-controls="speed"
+            aria-selected="false">speed</a>
+    </li>
+</ul>
+<div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active mt-4" id="weight" role="tabpanel" aria-labelledby="weight-tab">
+        <form method="" action="" name="">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputPounds">Pounds <span style="text-transform: lowercase;">(lb)</span></label>
+                    <input name="pounds" type="number" class="form-control" id="inputPounds" placeholder="Pounds"
+                        oninput="weightConverter(this.id, this.value)" onchange="weightConverter(this.id, this.value)">
+                </div>
+                <div class=" form-group col-md-6">
+                    <label for="inputKilograms">Kilograms <span style="text-transform: lowercase;">(kg)</span></label>
+                    <input name="kilograms" type="number" class="form-control" id="inputKilograms"
+                        placeholder="Kilograms" oninput="weightConverter(this.id, this.value)"
+                        onchange="weightConverter(this.id, this.value)">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputOunces">Ounces <span style="text-transform: lowercase;">(oz)</span></label>
+                    <input name="ounces" type="number" class="form-control" id="inputOunces" placeholder="Ounces"
+                        oninput="weightConverter(this.id, this.value)" onchange="weightConverter(this.id, this.value)">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputGrams">Grams <span style="text-transform: lowercase;">(g)</span></label>
+                    <input name="grams" type="number" class="form-control" id="inputGrams" placeholder="Grams"
+                        oninput="weightConverter(this.id, this.value)" onchange="weightConverter(this.id, this.value)">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputStones">Stones <span style="text-transform: lowercase;">(st)</span></label>
+                    <input name="stones" type="number" class="form-control" id="inputStones" placeholder="Stones"
+                        oninput="weightConverter(this.id, this.value)" onchange="weightConverter(this.id, this.value)">
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="tab-pane fade mt-4" id="temperature" role="tabpanel" aria-labelledby="temperature-tab">
+        <form method="" action="" name="">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputFahrenheit">Fahrenheit (°F)</label>
+                    <input name="fahrenheit" type="number" class="form-control" id="inputFahrenheit"
+                        placeholder="Fahrenheit" oninput="temperatureConverter(this.id, this.value)"
+                        onchange="temperatureConverter(this.id, this.value)">
+                </div>
+                <div class=" form-group col-md-6">
+                    <label for="inputCelsius">Celsius (°C)</label>
+                    <input name="celsius" type="number" class="form-control" id="inputCelsius" placeholder="Celsius"
+                        oninput="temperatureConverter(this.id, this.value)"
+                        onchange="temperatureConverter(this.id, this.value)">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputKelvin">Kelvin (K)</label>
+                    <input name="kelvin" type="number" class="form-control" id="inputKelvin" placeholder="Kelvin"
+                        oninput="temperatureConverter(this.id, this.value)"
+                        onchange="temperatureConverter(this.id, this.value)">
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="tab-pane fade mt-4" id="length" role="tabpanel" aria-labelledby="length-tab">
+        <form method="" action="" name="">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputFeet">Feet <span style="text-transform: lowercase;">(ft)</span></label>
+                    <input name="feet" type="number" class="form-control" id="inputFeet" placeholder="Feet"
+                        oninput="lengthConverter(this.id, this.value)" onchange="lengthConverter(this.id, this.value)">
+                </div>
+                <div class=" form-group col-md-6">
+                    <label for="inputMeters">Meters <span style="text-transform: lowercase;">(m)</span></label>
+                    <input name="meters" type="number" class="form-control" id="inputMeters" placeholder="Meters"
+                        oninput="lengthConverter(this.id, this.value)" onchange="lengthConverter(this.id, this.value)">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputInches">Inches <span style="text-transform: lowercase;">(in)</span></label>
+                    <input name="inches" type="number" class="form-control" id="inputInches" placeholder="Inches"
+                        oninput="lengthConverter(this.id, this.value)" onchange="lengthConverter(this.id, this.value)">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputcm">Centimeters <span style="text-transform: lowercase;">(cm)</span></label>
+                    <input name="centimeters" type="number" class="form-control" id="inputcm" placeholder="Centimeters"
+                        oninput="lengthConverter(this.id, this.value)" onchange="lengthConverter(this.id, this.value)">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputYards">Yards <span style="text-transform: lowercase;">(yd)</span></label>
+                    <input name="yards" type="number" class="form-control" id="inputYards" placeholder="Yards"
+                        oninput="lengthConverter(this.id, this.value)" onchange="lengthConverter(this.id, this.value)">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputKilometers">Kilometers <span style="text-transform: lowercase;">(km)</span></label>
+                    <input name="kilometers" type="number" class="form-control" id="inputKilometers"
+                        placeholder="Kilometers" oninput="lengthConverter(this.id, this.value)"
+                        onchange="lengthConverter(this.id, this.value)">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputMiles">Miles <span style="text-transform: lowercase;">(mi)</span></label>
+                    <input name="miles" type="number" class="form-control" id="inputMiles" placeholder="Miles"
+                        oninput="lengthConverter(this.id, this.value)" onchange="lengthConverter(this.id, this.value)">
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="tab-pane fade mt-4" id="speed" role="tabpanel" aria-labelledby="speed-tab">
+        <form method="" action="" name="">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputMPH">Miles per hour <span style="text-transform: lowercase;">(mph)</span></label>
+                    <input name="mph" type="number" class="form-control" id="inputMPH" placeholder="MI/H"
+                        oninput="speedConverter(this.id, this.value)" onchange="speedConverter(this.id, this.value)">
+                </div>
+                <div class=" form-group col-md-6">
+                    <label for="inputKPH">Kilometers per hour <span
+                            style="text-transform: lowercase;">(kph)</span></label>
+                    <input name="kph" type="number" class="form-control" id="inputKPH" placeholder="KM/H"
+                        oninput="speedConverter(this.id, this.value)" onchange="speedConverter(this.id, this.value)">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="inputKnots">Knots <span style="text-transform: lowercase;">(kn)</span></label>
+                    <input name="knots" type="number" class="form-control" id="inputKnots" placeholder="KT"
+                        oninput="speedConverter(this.id, this.value)" onchange="speedConverter(this.id, this.value)">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="inputMach">Mach <span style="text-transform: lowercase;"></span></label>
+                    <input name="mach" type="number" class="form-control" id="inputMach" placeholder="MA"
+                        oninput="speedConverter(this.id, this.value)" onchange="speedConverter(this.id, this.value)">
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<script>
+    let weightConverter = (source, valNum) => {
+        valNum = parseFloat(valNum);
+
+        let inputPounds = document.getElementById("inputPounds");
+        let inputKilograms = document.getElementById("inputKilograms");
+        let inputOunces = document.getElementById("inputOunces");
+        let inputGrams = document.getElementById("inputGrams");
+        let inputStones = document.getElementById("inputStones");
+
+        if (source == "inputPounds") {
+            inputKilograms.value = (valNum / 2.2046).toFixed(2);
+            inputOunces.value = (valNum * 16).toFixed(2);
+            inputGrams.value = (valNum / 0.0022046).toFixed();
+            inputStones.value = (valNum * 0.071429).toFixed(3);
+        }
+
+        if (source == "inputKilograms") {
+            inputPounds.value = (valNum * 2.2046).toFixed(2);
+            inputOunces.value = (valNum * 35.274).toFixed(2);
+            inputGrams.value = (valNum * 1000).toFixed();
+            inputStones.value = (valNum * 0.1574).toFixed(3);
+        }
+
+        if (source == "inputOunces") {
+            inputPounds.value = (valNum * 0.062500).toFixed(4);
+            inputKilograms.value = (valNum / 35.274).toFixed(4);
+            inputGrams.value = (valNum / 0.035274).toFixed(1);
+            inputStones.value = (valNum * 0.0044643).toFixed(4);
+        }
+
+        if (source == "inputGrams") {
+            inputPounds.value = (valNum * 0.0022046).toFixed(4);
+            inputKilograms.value = (valNum / 1000).toFixed(4);
+            inputOunces.value = (valNum * 0.035274).toFixed(3);
+            inputStones.value = (valNum * 0.00015747).toFixed(5);
+        }
+
+        if (source == "inputStones") {
+            inputPounds.value = (valNum * 14).toFixed(1);
+            inputKilograms.value = (valNum / 0.15747).toFixed(1);
+            inputOunces.value = (valNum * 224).toFixed();
+            inputGrams.value = (valNum / 0.00015747).toFixed();
+        }
+    };
+
+    let temperatureConverter = (source, valNum) => {
+        valNum = parseFloat(valNum);
+
+        let inputFahrenheit = document.getElementById("inputFahrenheit");
+        let inputCelsius = document.getElementById("inputCelsius");
+        let inputKelvin = document.getElementById("inputKelvin");
+
+        if (source == "inputFahrenheit") {
+            inputCelsius.value = ((valNum - 32) / 1.8).toFixed(2);
+            inputKelvin.value = (((valNum - 32) / 1.8) + 273.15).toFixed(2);
+        }
+        if (source == "inputCelsius") {
+            inputFahrenheit.value = ((valNum * 1.8) + 32).toFixed(2);
+            inputKelvin.value = ((valNum) + 273.15).toFixed(2);
+        }
+        if (source == "inputKelvin") {
+            inputFahrenheit.value = (((valNum - 273.15) * 1.8) + 32).toFixed(2);
+            inputCelsius.value = ((valNum) - 273.15).toFixed(2);
+        }
+    };
+
+    let lengthConverter = (source, valNum) => {
+        valNum = parseFloat(valNum);
+
+        let inputFeet = document.getElementById("inputFeet");
+        let inputMeters = document.getElementById("inputMeters");
+        let inputInches = document.getElementById("inputInches");
+        let inputcm = document.getElementById("inputcm");
+        let inputYards = document.getElementById("inputYards");
+        let inputKilometers = document.getElementById("inputKilometers");
+        let inputMiles = document.getElementById("inputMiles");
+
+        if (source == "inputFeet") {
+            inputMeters.value = (valNum / 3.2808).toFixed(2);
+            inputInches.value = (valNum * 12).toFixed(2);
+            inputcm.value = (valNum / 0.032808).toFixed();
+            inputYards.value = (valNum * 0.33333).toFixed(2);
+            inputKilometers.value = (valNum / 3280.8).toFixed(5);
+            inputMiles.value = (valNum * 0.00018939).toFixed(5);
+        }
+
+        if (source == "inputMeters") {
+            inputFeet.value = (valNum * 3.2808).toFixed(2);
+            inputInches.value = (valNum * 39.370).toFixed(2);
+            inputcm.value = (valNum / 0.01).toFixed();
+            inputYards.value = (valNum * 1.0936).toFixed(2);
+            inputKilometers.value = (valNum / 1000).toFixed(5);
+            inputMiles.value = (valNum * 0.00062137).toFixed(5);
+        }
+
+        if (source == "inputInches") {
+            inputFeet.value = (valNum * 0.083333).toFixed(3);
+            inputMeters.value = (valNum / 39.370).toFixed(3);
+            inputcm.value = (valNum / 0.39370).toFixed(2);
+            inputYards.value = (valNum * 0.027778).toFixed(3);
+            inputKilometers.value = (valNum / 39370).toFixed(6);
+            inputMiles.value = (valNum * 0.000015783).toFixed(6);
+        }
+
+        if (source == "inputcm") {
+            inputFeet.value = (valNum * 0.032808).toFixed(3);
+            inputMeters.value = (valNum / 100).toFixed(3);
+            inputInches.value = (valNum * 0.39370).toFixed(2);
+            inputYards.value = (valNum * 0.010936).toFixed(3);
+            inputKilometers.value = (valNum / 100000).toFixed(6);
+            inputMiles.value = (valNum * 0.0000062137).toFixed(6);
+        }
+
+        if (source == "inputYards") {
+            inputFeet.value = (valNum * 3).toFixed();
+            inputMeters.value = (valNum / 1.0936).toFixed(2);
+            inputInches.value = (valNum * 36).toFixed();
+            inputcm.value = (valNum / 0.010936).toFixed();
+            inputKilometers.value = (valNum / 1093.6).toFixed(5);
+            inputMiles.value = (valNum * 0.00056818).toFixed(5);
+        }
+
+        if (source == "inputKilometers") {
+            inputFeet.value = (valNum * 3280.8).toFixed();
+            inputMeters.value = (valNum * 1000).toFixed();
+            inputInches.value = (valNum * 39370).toFixed();
+            inputcm.value = (valNum * 100000).toFixed();
+            inputYards.value = (valNum * 1093.6).toFixed();
+            inputMiles.value = (valNum * 0.62137).toFixed(2);
+        }
+
+        if (source == "inputMiles") {
+            inputFeet.value = (valNum * 5280).toFixed();
+            inputMeters.value = (valNum / 0.00062137).toFixed();
+            inputInches.value = (valNum * 63360).toFixed();
+            inputcm.value = (valNum / 0.0000062137).toFixed();
+            inputYards.value = (valNum * 1760).toFixed();
+            inputKilometers.value = (valNum / 0.62137).toFixed(2);
+        }
+    };
+
+    let speedConverter = (source, valNum) => {
+        valNum = parseFloat(valNum);
+
+        let inputMPH = document.getElementById("inputMPH");
+        let inputKPH = document.getElementById("inputKPH");
+        let inputKnots = document.getElementById("inputKnots");
+        let inputMach = document.getElementById("inputMach");
+
+        // Miles Per Hour
+        if (source == "inputMPH") {
+            inputKPH.value = (valNum * 1.609344).toFixed(3);
+            inputKnots.value = (valNum / 1.150779).toFixed(3);
+            inputMach.value = (valNum / 761.207).toFixed(3);
+        }
+
+        // Kilometers Per Hour
+        if (source == "inputKPH") {
+            inputMPH.value = (valNum / 1.609344).toFixed(3);
+            inputKnots.value = (valNum / 1.852).toFixed(3);
+            inputMach.value = (valNum / 1225.044).toFixed(3);
+        }
+
+        // Knots
+        if (source == "inputKnots") {
+            inputMPH.value = (valNum * 1.150779).toFixed(2);
+            inputKPH.value = (valNum * 1.852).toFixed(2);
+            inputMach.value = (valNum / 661.4708).toFixed(4);
+        }
+
+        // Mach
+        if (source == "inputMach") {
+            inputMPH.value = (valNum * 761.207).toFixed();
+            inputKPH.value = (valNum * 1225.044).toFixed();
+            inputKnots.value = (valNum * 661.4708).toFixed();
+        }
+    };
+</script>
+
+{% endblock content%}

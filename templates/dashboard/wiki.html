@@ -1,0 +1,93 @@
+{% extends 'common/base.html' %}
+{% block title %}- Wikipedia{% endblock title %}
+{% block content %}
+<style>
+    .card a {
+        color: #333;
+    }
+
+    .card a:hover {
+        color: #eba510;
+    }
+
+    button {
+        display: inline-block;
+    }
+
+    button i {
+        font-size: 1.5rem;
+    }
+
+    #btnSubmit {
+        color: #dc3545;
+        border-color: #dc3545;
+    }
+
+    #btnReload {
+        color: #007bff;
+        border-color: #007bff;
+    }
+
+    #btnSubmit:hover {
+        color: #fff;
+        background-color: #dc3545;
+    }
+
+    #btnReload:hover {
+        color: #fff;
+        background-color: #007bff;
+    }
+</style>
+
+<a href="{% url 'home' %}" class="bx bx-arrow-back text-dark"> Back to home</a>
+<hr class="my-4">
+
+<div class='text-center'>
+    <h2>Search articles in wikipedia</h2>
+    <p>just enter the search query to obtain the results</p><b>Enter without any space</b>
+    <form method="post" action="" name="" class="mb-4">
+        {% csrf_token %}
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <input name="search" type="text" class="form-control" id="exampleInput1"
+                    placeholder="Enter the word here..." required>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-outline-secondary" id="btnSubmit">
+            <i class='bx bx-search-alt-2'></i>
+        </button>
+        <button type="button" class="btn btn-outline-secondary" id="btnReload">
+            <i class='bx bx-refresh'></i>
+        </button>
+    </form>
+    {% if error == 'yes' %}
+    <h4>Something went wrong!! Please try again.</h4>
+    {% endif %}
+</div>
+
+{% if error == 'no' %}
+
+<div class="card mb-3 shadow rounded" style="max-width: 100%;">
+    <div class="card-header text-center">
+        <span class="font-weight-bold">{{ title }}</span>
+        <br>
+        <a style="text-transform: none;" href="{{ link }}" target="_blank">{{ link }}</a>
+    </div>
+    <div class="card-body">
+        <h5 class="card-title">
+            <span class="text-muted" style="text-transform: none;"> {{ summary }}</span>
+        </h5>
+    </div>
+</div>
+
+{% endif %}
+
+<script>
+    let btnReload = document.getElementById("btnReload");
+
+    btnReload.addEventListener("click", () => {
+        window.location = ("{% url 'wiki' %}");
+    });
+</script>
+
+{% endblock content%}

@@ -1,0 +1,153 @@
+{% extends 'common/base.html' %}
+{% load static %}
+{% block title %}- Home{% endblock title %}
+{% block content %}
+<style>
+    img {
+        width: 100%;
+    }
+
+    .card {
+        overflow: hidden;
+    }
+
+    .card img:hover  {
+        transform: scale(1.1);
+        overflow: hidden;
+    }
+
+    .card-body a h5 {
+        color: #333;
+        font-weight: bold;
+    }
+
+    .card-body a h5:hover {
+        color: #eba510;
+    }
+</style>
+
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
+    <div class="col mb-4">
+        <div class="card h-100 border-dark shadow rounded">
+            <a href="{% url 'notes' %}">
+                <img src="{% static 'images/notes.jpg' %}" height="200" class="img-fluid card-img-top border" alt="notes">
+            </a>
+            <div class="card-body">
+                <a href="{% url 'notes' %}">
+                    <h5 class="card-title">Notes</h5>
+                </a>
+                <p class="card-text">
+                    Create Notes to refer them later. They are stored permanently until deleted
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col mb-4">
+        <div class="card h-100 border-dark shadow rounded">
+            <a href="{% url 'homeworks' %}">
+                <img src="{% static 'images/homework.jpg' %}" height="200" class="img-fluid card-img-top" alt="homework">
+            </a>
+            <div class="card-body">
+                <a href="{% url 'homeworks' %}">
+                    <h5 class="card-title">homework</h5>
+                </a>
+                <p class="card-text">
+                    Add homeworks and assign them deadlines. They will be displayed prioritised by deadlines
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col mb-4">
+        <div class="card h-100 border-dark shadow rounded">
+            <a href="{% url 'youtube' %}">
+                <img src="{% static 'images/youtube.jpg' %}" height="200" class="img-fluid card-img-top" alt="youtube">
+            </a>
+            <div class="card-body">
+                <a href="{% url 'youtube' %}">
+                    <h5 class="card-title">YouTube</h5>
+                </a>
+                <p class="card-text">
+                    Search Youtube and select your desired video to play it on youtube
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col mb-4">
+        <div class="card h-100 border-dark shadow rounded">
+            <a href="{% url 'todo' %}">
+                <img src="{% static 'images/todo.jpg' %}" height="200" class="img-fluid card-img-top" alt="todo">
+            </a>
+            <div class="card-body">
+                <a href="{% url 'todo' %}">
+                    <h5 class="card-title">To Do</h5>
+                </a>
+                <p class="card-text">
+                    Add your to-do lists for your day and remove them as you finish
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col mb-4">
+        <div class="card h-100 border-dark shadow rounded">
+            <a href="{% url 'books' %}">
+                <img src="{% static 'images/books.jpg' %}" height="200" class="card-img-top" alt="book">
+            </a>
+            <div class="card-body">
+                <a href="{% url 'books' %}">
+                    <h5 class="card-title">Books</h5>
+                </a>
+                <p class="card-text">
+                    Browse books from a list of neatly organised book menu
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col mb-4">
+        <div class="card h-100 border-dark shadow rounded">
+            <a href="{% url 'dictionary' %}">
+                <img src="{% static 'images/dictionary.jpg' %}" height="200" class="card-img-top" alt="dictionary">
+            </a>
+            <div class="card-body">
+                <a href="{% url 'dictionary' %}">
+                    <h5 class="card-title">dictionary</h5>
+                </a>
+                <p class="card-text">
+                    A vocabulary from a book is troubling you? No problem, enter the word, and the meaning will be
+                    displayed almost instantaneously.
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col mb-4">
+        <div class="card h-100 border-dark shadow rounded">
+            <a href="{% url 'wiki' %}">
+                <img src="{% static 'images/wiki.jpg' %}" height="200" class="card-img-top border-bottom" alt="wiki">
+            </a>
+            <div class="card-body">
+                <a href="{% url 'wiki' %}">
+                    <h5 class="card-title">wikipedia</h5>
+                </a>
+                <p class="card-text">
+                    Search wikipedia to get fast results
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col mb-4">
+        <div class="card h-100 border-dark shadow rounded">
+            <a href="{% url 'converter' %}">
+                <img src="{% static 'images/conversion.jpg' %}" height="200" class="card-img-top" alt="conversion">
+            </a>
+            <div class="card-body">
+                <a href="{% url 'converter' %}">
+                    <h5 class="card-title">converter</h5>
+                </a>
+                <p class="card-text">
+                    Check out the conversion table, that helps you to convert measurements to more familiar ones of your
+                    choice.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

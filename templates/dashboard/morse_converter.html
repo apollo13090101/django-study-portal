@@ -1,0 +1,467 @@
+{% extends 'common/base.html' %}
+{% load static %}
+{% block title %}- Morse Translator{% endblock title %}
+{% block content %}
+<style>
+    .form-group textarea {
+        color: teal;
+        font-size: 1.3rem;
+        text-transform: none;
+    }
+
+    table td {
+        font-size: 1.5rem;
+    }
+
+    .is-size-5 {
+        font-weight: bold;
+    }
+
+    p {
+        font-size: 1.2rem;
+        color: teal;
+    }
+
+    .form-group label {
+        font-weight: bold;
+    }
+</style>
+<a href="{% url 'converter' %}" class="bx bx-arrow-back text-dark"> Back to converters</a>
+<hr class="my-4">
+
+<div class='text-center'>
+    <h2>Morse Decoder & Translator</h2>
+</div>
+
+<form method="" action="" name="">
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="inputText">Text</label>
+            <textarea type="text" class="form-control" id="inputText" rows="7"
+                oninput="morseConverter(this.id, this.value)" onchange="morseConverter(this.id, this.value)"></textarea>
+        </div>
+        <div class=" form-group col-md-6">
+            <label for="inputMorse">Morse code</label>
+            <textarea type="text" class="form-control" id="inputMorse" rows="7"
+                oninput="morseConverter(this.id, this.value)" onchange="morseConverter(this.id, this.value)"></textarea>
+        </div>
+    </div>
+</form>
+<div class=" my-2"></div>
+
+<div data-header="Morse Code Alphabet" id="characters" class="table-container">
+    <h2 class="is-size-5 text-center">Morse Code Alphabet</h2>
+    <p class="font-weight-bold">Latin</p>
+    <table class="table table-bordered table-striped table-hover">
+        <tbody>
+            <tr>
+                <td class="font-weight-bold">A</td>
+                <td>.-</td>
+                <td class="font-weight-bold">B</td>
+                <td>-...</td>
+                <td class="font-weight-bold">C</td>
+                <td>-.-.</td>
+                <td class="font-weight-bold">D</td>
+                <td>-..</td>
+                <td class="font-weight-bold">E</td>
+                <td>.</td>
+                <td class="font-weight-bold">F</td>
+                <td>..-.</td>
+            </tr>
+            <tr>
+                <td class="font-weight-bold">G</td>
+                <td>--.</td>
+                <td class="font-weight-bold">H</td>
+                <td>....</td>
+                <td class="font-weight-bold">I</td>
+                <td>..</td>
+                <td class="font-weight-bold">J</td>
+                <td>.---</td>
+                <td class="font-weight-bold">K</td>
+                <td>-.-</td>
+                <td class="font-weight-bold">L</td>
+                <td>.-..</td>
+            </tr>
+            <tr>
+                <td class="font-weight-bold">M</td>
+                <td>--</td>
+                <td class="font-weight-bold">N</td>
+                <td>-.</td>
+                <td class="font-weight-bold">O</td>
+                <td>---</td>
+                <td class="font-weight-bold">P</td>
+                <td>.--.</td>
+                <td class="font-weight-bold">Q</td>
+                <td>--.-</td>
+                <td class="font-weight-bold">R</td>
+                <td>.-.</td>
+            </tr>
+            <tr>
+                <td class="font-weight-bold">S</td>
+                <td>...</td>
+                <td class="font-weight-bold">T</td>
+                <td>-</td>
+                <td class="font-weight-bold">U</td>
+                <td>..-</td>
+                <td class="font-weight-bold">V</td>
+                <td>...-</td>
+                <td class="font-weight-bold">W</td>
+                <td>.--</td>
+                <td class="font-weight-bold">X</td>
+                <td>-..-</td>
+            </tr>
+            <tr>
+                <td class="font-weight-bold">Y</td>
+                <td>-.--</td>
+                <td class="font-weight-bold">Z</td>
+                <td>--..</td>
+            </tr>
+        </tbody>
+    </table>
+    <p class="font-weight-bold">Numbers</p>
+    <table class="table table-bordered table-striped table-hover">
+        <tbody>
+            <tr>
+                <td class="font-weight-bold">0</td>
+                <td>-----</td>
+                <td class="font-weight-bold">1</td>
+                <td>.----</td>
+                <td class="font-weight-bold">2</td>
+                <td>..---</td>
+                <td class="font-weight-bold">3</td>
+                <td>...--</td>
+                <td class="font-weight-bold">4</td>
+                <td>....-</td>
+                <td class="font-weight-bold">5</td>
+                <td>.....</td>
+            </tr>
+            <tr>
+                <td class="font-weight-bold">6</td>
+                <td>-....</td>
+                <td class="font-weight-bold">7</td>
+                <td>--...</td>
+                <td class="font-weight-bold">8</td>
+                <td>---..</td>
+                <td class="font-weight-bold">9</td>
+                <td>----.</td>
+            </tr>
+        </tbody>
+    </table>
+    <p class="font-weight-bold">Punctuation</p>
+    <table class="table table-bordered table-striped table-hover">
+        <tbody>
+            <tr>
+                <td class="font-weight-bold">.</td>
+                <td>.-.-.-</td>
+                <td class="font-weight-bold">,</td>
+                <td>--..--</td>
+                <td class="font-weight-bold">?</td>
+                <td>..--..</td>
+                <td class="font-weight-bold">'</td>
+                <td>.----.</td>
+                <td class="font-weight-bold">!</td>
+                <td>-.-.--</td>
+                <td class="font-weight-bold">/</td>
+                <td>-..-.</td>
+            </tr>
+            <tr>
+                <td class="font-weight-bold">(</td>
+                <td>-.--.</td>
+                <td class="font-weight-bold">)</td>
+                <td>-.--.-</td>
+                <td class="font-weight-bold">&amp;</td>
+                <td>.-...</td>
+                <td class="font-weight-bold">:</td>
+                <td>---...</td>
+                <td class="font-weight-bold">;</td>
+                <td>-.-.-.</td>
+                <td class="font-weight-bold">=</td>
+                <td>-...-</td>
+            </tr>
+            <tr>
+                <td class="font-weight-bold">+</td>
+                <td>.-.-.</td>
+                <td class="font-weight-bold">-</td>
+                <td>-....-</td>
+                <td class="font-weight-bold">_</td>
+                <td>..--.-</td>
+                <td class="font-weight-bold">"</td>
+                <td>.-..-.</td>
+                <td class="font-weight-bold">$</td>
+                <td>...-..-</td>
+                <td class="font-weight-bold">@</td>
+                <td>.--.-.</td>
+            </tr>
+            <tr>
+                <td class="font-weight-bold">¿</td>
+                <td>..-.-</td>
+                <td class="font-weight-bold">¡</td>
+                <td>--...-</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<hr class="my-4">
+
+
+<div>
+    <div>
+        <h2 class="is-size-5" itemprop="name">What is Morse Code?</h2>
+        <div itemscope="" itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">Morse Code is a character encoding scheme that allows operators to send messages using a
+                series of electrical pulses represented as short or long pulses, dots, and dashes in other words.</p>
+        </div>
+    </div>
+    <div>
+        <h2 class="is-size-5" itemprop="name">Who Invented Morse Code?</h2>
+        <div itemscope="" itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">Samuel F. B. Morse and his assistant Alfred Vail are known as the inventors of the Morse
+                code.</p>
+        </div>
+    </div>
+    <div>
+        <h2 class="is-size-5" itemprop="name">When Was Morse Code Invented?</h2>
+        <div itemscope="" itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">Morse code developed in the 1830s then advanced in the 1840s.</p>
+        </div>
+    </div>
+    <div>
+        <h2 class="is-size-5" itemprop="name">When Was Morse Code Patented?</h2>
+        <div itemscope="" itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">Samuel Morse received a U.S. patent, US1647A, for dot-dash telegraphy signals on June 20,
+                1840. On the other hand, some sources claim that Samuel Morse received a patent issued by an Ottoman
+                Sultan, Abdulmejid I, for Morse Code. However, according to Cyrus Hamlin’s memoirs and The New York
+                Times obituary published on April 3, 1872, Samuel Morse received not a patent, but an order of the
+                Ottoman Empire, Order of Glory, instead.</p>
+        </div>
+    </div>
+    <div>
+        <h2 class="is-size-5" itemprop="name">What Was the First Message Sent by Morse Code?</h2>
+        <div itemscope="" itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">“What hath God wrought” is the first official message sent by Samuel F.B. Morse on May
+                24, 1844, to open the Baltimore - Washington telegraph line.</p>
+        </div>
+    </div>
+    <div>
+        <h2 class="is-size-5" itemprop="name">What is Morse Code Used For?</h2>
+        <div itemscope="" itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">In the past, Morse code had extensive usage, especially in the military. Although Morse
+                code has a limited usage area today, it is still being used in aviation, amateur radio activities, and
+                assistive technology (AT).</p>
+        </div>
+    </div>
+    <div>
+        <h2 class="is-size-5" itemprop="name">How to Use Morse Code?</h2>
+        <div itemscope="" itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">Morse code can be used in various ways, such as with pen and paper or with the aid of
+                light and sound. Even, it can be used with the parts of the body like eyes or fingers.</p>
+        </div>
+    </div>
+    <div>
+        <h2 class="is-size-5" itemprop="name">What Does SOS Mean?</h2>
+        <div itemscope="" itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">SOS is a distress signal in Morse code, which is internationally recognized worldwide for
+                obtaining help. It was first adopted by the German government in 1905. Although some people think that
+                SOS stands for “Save Our Souls” or “Save Our Ship”, its letters do not stand for anything.</p>
+        </div>
+    </div>
+    <div>
+        <h2 class="is-size-5" itemprop="name">What is SOS in Morse Code?</h2>
+        <div itemscope="" itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">SOS in Morse code is “... --- ...”</p>
+        </div>
+    </div>
+    <div>
+        <h2 class="is-size-5" itemprop="name">What is the Morse Code for I Love You?</h2>
+        <div itemscope="" itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">“I Love You” in Morse code is “.. / .-.. --- ...- . / -.-- --- ..-”</p>
+        </div>
+    </div>
+    <div>
+        <h2 class="is-size-5" itemprop="name">How to Say Hello in Morse Code?</h2>
+        <div itemscope="" itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">“Hello” in Morse code is “.... . .-.. .-.. ---”</p>
+        </div>
+    </div>
+    <div>
+        <h2 class="is-size-5" itemprop="name">How Do You Say Help in Morse Code?</h2>
+        <div itemscope="" itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">“Help” in Morse code is “.... . .-.. .--.”, but you can also use the SOS signal, which is
+                “... --- ...”.</p>
+        </div>
+    </div>
+    <div>
+        <h2 class="is-size-5" itemprop="name">What Does --- Mean in Morse Code?</h2>
+        <div itemscope="" itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">“---” means “O” in Morse code.</p>
+        </div>
+    </div>
+    <div>
+        <h2 class="is-size-5" itemprop="name">What Does 3 Dots Mean in Morse Code?</h2>
+        <div itemscope="" itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+            <p itemprop="text">Letter S is three dots in Morse code: “...”</p>
+        </div>
+    </div>
+</div>
+
+<img src="{% static 'images/morse-code-chart.jpg' %}" class="img-fluid" alt="morse">
+
+<div class="text-center">
+    <a class="text-danger font-weight-bold mb-4" style="color: #333;" href="https://morsedecoder.com/"
+        target="_blank">Visit https://morsedecoder.com/ to
+        learn more about morse code.</a>
+</div>
+
+<script>
+    let morseConverter = (source, valStr) => {
+        const morseCode = {
+            "A": ".-",
+            "B": "-...",
+            "C": "-.-.",
+            "D": "-..",
+            "E": ".",
+            "F": "..-.",
+            "G": "--.",
+            "H": "....",
+            "I": "..",
+            "J": ".---",
+            "K": "-.-",
+            "L": ".-..",
+            "M": "--",
+            "N": "-.",
+            "O": "---",
+            "P": ".--.",
+            "Q": "--.-",
+            "R": ".-.",
+            "S": "...",
+            "T": "-",
+            "U": "..-",
+            "V": "...-",
+            "W": ".--",
+            "X": "-..-",
+            "Y": "-.--",
+            "Z": "--..",
+            "0": "-----",
+            "1": ".----",
+            "2": "..---",
+            "3": "...--",
+            "4": "....-",
+            "5": ".....",
+            "6": "-....",
+            "7": "--...",
+            "8": "---..",
+            "9": "----.",
+            ".": ".-.-.-",
+            ",": "--..--",
+            "?": "..--..",
+            "'": ".----.",
+            "!": "-.-.--",
+            "/": "-..-.",
+            "(": "-.--.",
+            ")": "-.--.-",
+            "&": ".-...",
+            ":": "---...",
+            ";": "-.-.-.",
+            "=": "-...-",
+            "+": ".-.-.",
+            "-": "-....-",
+            "_": "..--.-",
+            '"': ".-..-.",
+            "$": "...-..-",
+            "@": ".--.-.",
+            "¿": "..-.-",
+            "¡": "--...-",
+        }
+
+        const ref = {
+            '.-': 'A',
+            '-...': 'B',
+            '-.-.': 'C',
+            '-..': 'D',
+            '.': 'E',
+            '..-.': 'F',
+            '--.': 'G',
+            '....': 'H',
+            '..': 'I',
+            '.---': 'J',
+            '-.-': 'K',
+            '.-..': 'L',
+            '--': 'M',
+            '-.': 'N',
+            '---': 'O',
+            '.--.': 'P',
+            '--.-': 'Q',
+            '.-.': 'R',
+            '...': 'S',
+            '-': 'T',
+            '..-': 'U',
+            '...-': 'V',
+            '.--': 'W',
+            '-..-': 'X',
+            '-.--': 'Y',
+            '--..': 'Z',
+            '.----': '1',
+            '..---': '2',
+            '...--': '3',
+            '....-': '4',
+            '.....': '5',
+            '-....': '6',
+            '--...': '7',
+            '---..': '8',
+            '----.': '9',
+            '-----': '0',
+            ".-.-.-": ".",
+            "--..--": ",",
+            "..--..": "?",
+            ".----.": "'",
+            "-.-.--": "!",
+            "-..-.": "/",
+            "-.--.": "(",
+            "-.--.-": ")",
+            ".-...": "&",
+            "---...": ":",
+            "-.-.-.": ";",
+            "-...-": "=",
+            ".-.-.": "+",
+            "-....-": "-",
+            "..--.-": "_",
+            ".-..-.": '"',
+            "...-..-": "$",
+            ".--.-.": "@",
+            "..-.-": "¿",
+            "--...-": "¡",
+        };
+
+        let inputText = document.getElementById("inputText");
+        let inputMorse = document.getElementById("inputMorse");
+
+        let convertToMorse = (str) => {
+            return str.toUpperCase().split("").map(el => {
+                return morseCode[el] ? morseCode[el] : el;
+            }).join("");
+        };
+
+        let convertToText = (str) => {
+            return str
+                .split('   ')
+                .map(
+                    a => a
+                    .split(' ')
+                    .map(
+                        b => ref[b]
+                    ).join('')
+                ).join(' ');
+        };
+
+        if (source == "inputText") {
+            inputMorse.value = convertToMorse(valStr);
+        }
+
+        if (source == "inputMorse") {
+            inputText.value = convertToText(valStr);
+        }
+
+    };
+</script>
+
+{% endblock content%}

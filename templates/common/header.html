@@ -1,0 +1,101 @@
+<header id="header" class="header">
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+        <div class="container">
+            {% if user.is_authenticated %}
+            <a class="navbar-brand" href="{% url 'home' %}">
+                <span class="bx bxs-sun"> Apollo Education</span>
+            </a>
+            {% else %}
+            <a class="navbar-brand" href="{% url 'index' %}">
+                <span class="bx bxs-sun"> Apollo Education</span>
+            </a>
+            {% endif %}
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav me-auto mb-2 mb-md-0">
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'home' %}">
+                            <i class='bx bx-home-alt'></i> Home
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class='bx bx-category-alt'></i> Options
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{% url 'books' %}">
+                                <i class='bx bxs-book'></i> books
+                            </a>
+                            <a class="dropdown-item" href="{% url 'wiki' %}">
+                                <i class='bx bxl-wikipedia'></i> wikipedia
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{% url 'dictionary' %}">
+                                <i class='bx bx-world'></i> dictionary
+                            </a>
+                            <a class="dropdown-item" href="{% url 'youtube' %}">
+                                <i class='bx bxl-youtube'></i> Youtube
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{% url 'todo' %}">
+                                <i class='bx bx-task'></i> To-do
+                            </a>
+                            <a class="dropdown-item" href="{% url 'homeworks' %}">
+                                <i class='bx bxs-file'></i> Homework
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{% url 'notes' %}">
+                                <i class='bx bxs-note'></i> Notes
+                            </a>
+                            <a class="dropdown-item" href="{% url 'converter' %}">
+                                <i class='bx bx-transfer'></i> Converter
+                            </a>
+                        </div>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="{% url 'index' %}">
+                            <i class='bx bx-home-alt'></i> Home
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+                <ul class="nav navar-nav navbar-right ml-auto">
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link text-white" href="">
+                            Hi, <span style="text-transform: lowercase;">{{ request.user }}</span>
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class='bx bxs-user-detail'></i> Profile
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="{% url 'profile' %}">
+                                <i class='bx bx-user-circle'></i> Edit Profile
+                            </a>
+                            <a class="dropdown-item text-danger" href="{% url 'logout' %}">
+                                <i class='bx bx-log-out-circle'></i> Logout
+                            </a>
+                        </div>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link text-white font-weight-bold" href="{% url 'login' %}">
+                            <i class='bx bx-log-in-circle'></i> Login
+                        </a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>

@@ -1,0 +1,65 @@
+{% extends 'common/base.html' %}
+{% block title %}- Notes{% endblock title %}
+{% block content %}
+<style>
+    .card-header a {
+        color: #333;
+    }
+
+    .card-header a:hover {
+        color: #eba510;
+    }
+</style>
+
+<a href="{% url 'home' %}" class="bx bx-arrow-back text-dark"> Back to home</a>
+<hr class="mt-4 mb-4">
+<div class="row">
+    <div class="col-md-9">
+        <div class="row row-cols-1 row-cols-md-3">
+            {% for n in notes %}
+            <div class="col mb-4">
+                <div class="card h-100 border-dark mb-3 shadow rounded" style="max-width: 18rem;">
+                    <div class="card-header bg-light">
+                        <a href="{% url 'note_detail' n.id %}" class="font-weight-bold">
+                            {{ n.title }}
+                        </a>
+                        <br>
+                        <span class="note-update-time">updated {{ n.updated | timesince }} ago</span>
+                    </div>
+                    <div class="card-body">
+                        {{ n.description | slice:"0:100" }}
+                    </div>
+                    <div class="card-footer text-center">
+                        <a href="{% url 'delete_note' n.id %}"
+                            onclick="return confirm('Are you sure you want to delete this note?')">
+                            <i class='bx bxs-trash'></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="col-md-3">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="mb-2 font-weight-bold">Create new Note here</legend>
+            </fieldset>
+            <div class="form-group">
+                <label for="notetitle">note title</label>
+                {{ form.title }}
+            </div>
+            <div class="form-group">
+                <label for="notedesc">note description</label>
+                {{ form.description }}
+            </div>
+            <div class="form-group">
+                <button href="" class="btn btn-outline-info" type="submit">
+                    Create
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock content %}

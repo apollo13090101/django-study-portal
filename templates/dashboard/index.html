@@ -1,0 +1,14 @@
+{% extends 'common/base.html' %}
+{% block title %}- Welcome{% endblock title %}
+{% block content %}
+<div class="jumbotron jumbotron-fluid text-center">
+    <div class="container">
+        <h1 class="display-4">Apollo Study Portal</h1>
+        <p class="lead">Sign up to have a wonderful time learning at the University.</p>
+        <p><strong> Start Here:</strong></p>
+        <a href="{% url 'register' %}" class="btn btn-lg btn-info">
+            <i class='bx bx-user-plus'></i> Sign Up
+        </a>
+    </div>
+</div>
+{% endblock content %}

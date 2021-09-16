@@ -1,0 +1,122 @@
+{% extends 'common/base.html' %}
+{% block title %}- Binary Converter{% endblock title %}
+{% block content %}
+<style>
+    .form-group label {
+        font-weight: bold;
+    }
+
+    .form-group input {
+        font-size: 1.2rem;
+        color: teal;
+        font-weight: bold;
+        text-transform: uppercase;
+    }
+</style>
+<a href="{% url 'converter' %}" class="bx bx-arrow-back text-dark"> Back to converters</a>
+<hr class="my-4">
+
+<form method="" action="" name="">
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="inputDecimal">Decimal (10)</label>
+            <input name="decimal" type="text" class="form-control" id="inputDecimal"
+                oninput="numberConverter(this.id, this.value)" onchange="numberConverter(this.id, this.value)"
+                onkeypress="return event.keyCode >= 48 && event.keyCode <= 57">
+        </div>
+        <div class=" form-group col-md-6">
+            <label for="inputHex">Hexadecimal (16)</label>
+            <input name="hex" type="text" class="form-control" id="inputHex"
+                oninput="numberConverter(this.id, this.value)" onchange="numberConverter(this.id, this.value)"
+                onkeypress="return (event.keyCode >= 48 && event.keyCode <= 57) || (event.keyCode >= 65 && event.keyCode <= 70) || (event.keyCode >= 97 && event.keyCode <= 102)">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-md-6">
+            <label for="inputOctal">Octal (8)</label>
+            <input name="octal" type="text" class="form-control" id="inputOctal"
+                oninput="numberConverter(this.id, this.value)" onchange="numberConverter(this.id, this.value)"
+                onkeypress="return event.keyCode >= 48 && event.keyCode <= 57">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="inputBinary">Binary (2)</label>
+            <input name="binary" type="text" class="form-control" id="inputBinary"
+                oninput="numberConverter(this.id, this.value)" onchange="numberConverter(this.id, this.value)"
+                onkeypress="return event.keyCode == 48 || event.keyCode == 49">
+        </div>
+    </div>
+</form>
+
+<script>
+    let numberConverter = (source, valNum) => {
+        let inputDecimal = document.getElementById("inputDecimal");
+        let inputHex = document.getElementById("inputHex");
+        let inputOctal = document.getElementById("inputOctal");
+        let inputBinary = document.getElementById("inputBinary");
+
+        let isEmpty = (val) => {
+            return (val.length == null || val == '');
+        }
+
+        let changeBase = (number, fromBase, toBase) => {
+            if (fromBase == 10)
+                return (parseInt(number)).toString(toBase)
+            else if (toBase == 10)
+                return parseInt(number, fromBase);
+            else {
+                var numberInDecimal = parseInt(number, fromBase);
+                return parseInt(numberInDecimal).toString(toBase);
+            }
+        };
+
+        if (source == "inputDecimal") {
+            if (!isEmpty(valNum)) {
+                inputHex.value = changeBase(valNum, 10, 16);
+                inputOctal.value = changeBase(valNum, 10, 8);
+                inputBinary.value = changeBase(valNum, 10, 2);
+            } else {
+                inputHex.value = changeBase(0, 10, 16);
+                inputOctal.value = changeBase(0, 10, 8);
+                inputBinary.value = changeBase(0, 10, 2);
+            }
+        }
+
+        if (source == "inputHex") {
+            if (!isEmpty(valNum)) {
+                inputDecimal.value = changeBase(valNum, 16, 10);
+                inputOctal.value = changeBase(valNum, 16, 8);
+                inputBinary.value = changeBase(valNum, 16, 2);
+            } else {
+                inputDecimal.value = changeBase(0, 16, 10);
+                inputOctal.value = changeBase(0, 16, 8);
+                inputBinary.value = changeBase(0, 16, 2);
+            }
+        }
+
+        if (source == "inputOctal") {
+            if (!isEmpty(valNum)) {
+                inputDecimal.value = changeBase(valNum, 8, 10);
+                inputHex.value = changeBase(valNum, 8, 16);
+                inputBinary.value = changeBase(valNum, 8, 2);
+            } else {
+                inputDecimal.value = changeBase(0, 8, 10);
+                inputHex.value = changeBase(0, 8, 16);
+                inputBinary.value = changeBase(0, 8, 2);
+            }
+        }
+
+        if (source == "inputBinary") {
+            if (!isEmpty(valNum)) {
+                inputDecimal.value = changeBase(valNum, 2, 10);
+                inputHex.value = changeBase(valNum, 2, 16);
+                inputOctal.value = changeBase(valNum, 2, 8);
+            } else {
+                inputDecimal.value = changeBase(0, 2, 10);
+                inputHex.value = changeBase(0, 2, 16);
+                inputOctal.value = changeBase(0, 2, 8);
+            }
+        }
+    };
+</script>
+
+{% endblock content%}

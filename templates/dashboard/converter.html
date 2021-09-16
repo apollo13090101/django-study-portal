@@ -1,0 +1,100 @@
+{% extends 'common/base.html' %}
+{% load static %}
+{% block title %}- Converter{% endblock title %}
+{% block content %}
+<style>
+    img {
+        width: 100%;
+    }
+
+    .card {
+        overflow: hidden;
+    }
+
+    .card img:hover {
+        transform: scale(1.1);
+        overflow: hidden;
+    }
+
+    .card-body a h5 {
+        color: #333;
+        font-weight: bold;
+    }
+
+    .card-body a h5:hover {
+        color: #eba510;
+    }
+</style>
+
+<a href="{% url 'home' %}" class="bx bx-arrow-back text-dark"> Back to home</a>
+<hr class="my-4">
+
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
+    <div class="col mb-4">
+        <div class="card h-100 border-dark shadow rounded">
+            <a href="{% url 'unit_converter' %}">
+                <img src="{% static 'images/unit_converter.png' %}" height="200" class="img-fluid card-img-top border"
+                    alt="unit">
+            </a>
+            <div class="card-body">
+                <a href="{% url 'unit_converter' %}">
+                    <h5 class="card-title">Unit Converter</h5>
+                </a>
+                <p class="card-text">
+                    converts common units of measurement
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col mb-4">
+        <div class="card h-100 border-dark shadow rounded">
+            <a href="{% url 'currency_converter' %}">
+                <img src="{% static 'images/currency_converter.png' %}" height="200" class="img-fluid card-img-top border"
+                    alt="currency">
+            </a>
+            <div class="card-body">
+                <a href="{% url 'currency_converter' %}">
+                    <h5 class="card-title">Currency Converter</h5>
+                </a>
+                <p class="card-text">
+                    converting one currency to another using the latest live exchange rates
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col mb-4">
+        <div class="card h-100 border-dark shadow rounded">
+            <a href="{% url 'number_converter' %}">
+                <img src="{% static 'images/binary_converter.png' %}" height="200" class="img-fluid card-img-top border"
+                    alt="binary">
+            </a>
+            <div class="card-body">
+                <a href="{% url 'number_converter' %}">
+                    <h5 class="card-title">Number Converter</h5>
+                </a>
+                <p class="card-text">
+                    Converting a number written in binary notation to a number system with another base, such as
+                    decimal, octal, or hexadecimal
+                </p>
+            </div>
+        </div>
+    </div>
+    <div class="col mb-4">
+        <div class="card h-100 border-dark shadow rounded">
+            <a href="{% url 'morse_converter' %}">
+                <img src="{% static 'images/morse_converter.png' %}" height="200" class="img-fluid card-img-top border"
+                    alt="morse">
+            </a>
+            <div class="card-body">
+                <a href="{% url 'morse_converter' %}">
+                    <h5 class="card-title">Morse Decoder/Translator</h5>
+                </a>
+                <p class="card-text">
+                    translate text to Morse code and decode Morse code to text easily.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock content%}

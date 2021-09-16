@@ -1,0 +1,99 @@
+{% extends 'common/base.html' %}
+{% block title %}- Books{% endblock title %}
+{% block content %}
+<style>
+    .card a {
+        color: #333;
+    }
+
+    .card a:hover {
+        color: #eba510;
+    }
+</style>
+
+<a href="{% url 'home' %}" class="bx bx-arrow-back text-dark"> Back to home</a>
+<hr class="my-4">
+
+<div class='text-center'>
+    <h2>Search books and browse your favorite</h2>
+    <p>enter the search query to obtain the results</p>
+    <form method="post" action="" name="" class="mb-4">
+        {% csrf_token %}
+        <div class="form-row">
+            <div class="form-group col-md-12">
+                <input name="search" type="text" class="form-control" id="exampleInput1"
+                    placeholder="Enter your Search here..." required>
+            </div>
+        </div>
+        <input class="btn btn-danger" type="submit" value="Submit">
+        <input type="button" id="btnReload" class="btn btn-primary" value="Reload">
+    </form>
+    {% if error == 'yes'%}
+    <h4>We didn't find any matches!! Please try again.</h4>
+    {% endif %}
+</div>
+
+{% if error == 'no' %}
+
+{% for r in results %}
+<div class="card mb-3 shadow rounded" style="max-width: 100%;">
+    <div class="row no-gutters align-items-center">
+        <div class="col-12 col-md-4 text-center">
+            <a href="{{ r.preview }}" target="_blank">
+                <img src="{{ r.thumbnail }}" alt="{{ r.thumbnail }}" width="200" height="360" class="border">
+            </a>
+        </div>
+        <div class="col-12 col-md-8">
+            <div class="card-body">
+                <a href="{{ r.preview }}" target="_blank">
+                    <h5 class="card-title font-weight-bold">{{ r.title }}</h5>
+                </a>
+                {% if r.subtitle %}
+                <p class="card-text mt-0 mb-0">
+                    Subtitle: <span class="text-muted">{{ r.subtitle }}</span>
+                </p>
+                {% endif %}
+
+                {% if r.description %}
+                <p class="card-text mt-0 mb-0">
+                    Description: <span class="text-muted">{{ r.description }}</span>
+                </p>
+                {% endif %}
+
+                {% if r.categories %}
+                <p class="card-text mt-0 mb-0">
+                    category:
+                    {% for c in r.categories %}
+                    <span class="text-muted">{{ c }}</span>
+                    {% endfor %}
+                </p>
+                {% endif %}
+
+                {% if r.count %}
+                <p class="card-text mt-0 mb-0">
+                    pages: <span class="text-muted">{{ r.count }}</span>
+                </p>
+                {% endif %}
+
+                {% if r.rating %}
+                <p class="card-text mt-0 mb-0">
+                    ratings: <span class="text-muted">{{ r.rating }}</span>
+                </p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+{% endif %}
+
+<script>
+    let btnReload = document.getElementById("btnReload");
+
+    btnReload.addEventListener("click", () => {
+        window.location = ("{% url 'books' %}");
+    });
+</script>
+
+{% endblock content%}

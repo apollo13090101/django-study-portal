@@ -1,0 +1,137 @@
+{% extends 'common/base.html' %}
+{% block title %}- Dictionary{% endblock title %}
+{% block content %}
+<style>
+    .card a {
+        color: #333;
+    }
+
+    .card a:hover {
+        color: #eba510;
+    }
+
+    #exampleInput1 {
+        border: 0.5px solid #555;
+    }
+
+    #exampleInput1:focus {
+        box-shadow: none;
+    }
+
+    #btnSubmit {
+        color: #dc3545;
+    }
+
+    #btnReload {
+        color: #007bff;
+    }
+
+    #btnSubmit:hover {
+        color: #fff;
+        background-color: #dc3545;
+    }
+
+    #btnReload:hover {
+        color: #fff;
+        background-color: #007bff;
+    }
+</style>
+
+<a href="{% url 'home' %}" class="bx bx-arrow-back text-dark"> Back to home</a>
+<hr class="my-4">
+
+<div class='text-center'>
+    <h2 class="font-weight-bold">Dictionary</h2>
+    <h3>Enter any word to get the phonetics, definition and an example for the word</h3>
+
+    {% if error == 'yes' %}
+    <h4 class="font-weight-bold text-danger">Sorry, API request limit exceeded</h4>
+    {% endif %}
+</div>
+<hr class="my-4">
+
+<div class="row">
+    <div class="text-center col-12 col-md-3 border-right border-dark">
+        <form method="post" action="" name="" class="mb-4">
+            {% csrf_token %}
+            <div class="form-row">
+                <div class="form-group col-md-12">
+                    <div class="input-group">
+                        <input name="search" type="text" class="form-control" id="exampleInput1"
+                            placeholder="Enter the word here..." required>
+                        <div class="input-group-append">
+                            <button type="submit" class="btn btn-outline-secondary" id="btnSubmit">
+                                <i class='bx bx-search-alt-2'></i>
+                            </button>
+                            <button type="button" class="btn btn-outline-secondary" id="btnReload">
+                                <i class='bx bx-refresh'></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-12 col-md-9">
+        {% if error == 'no' %}
+        <div class="card mb-3 shadow rounded" style="max-width: 100%;">
+            <div class="card-header text-center">
+                <span class="font-weight-bold">{{ word }}</span> ({{ partOfSpeech }})
+                <br>
+                <span style="text-transform: lowercase;">{{ phonetics }}</span>
+                <br>
+                <audio id="audioPlayer" src="{{ audio }}"></audio>
+                <i id="volumeIcon" class='bx bxs-volume-full'></i>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">
+                    Definition: <span class="text-muted"> {{ definition }}</span>
+                </h5>
+                <h5 class="card-title">
+                    Origin: <span class="text-muted"> {{ origin }}</span>
+                </h5>
+                </h5>
+                <h5 class="card-title">
+                    example: <span class="text-muted"> {{ example }}</span>
+                </h5>
+            </div>
+            <div class="card-footer text-center text-muted">
+                <p class="card-text">
+                    <span class="font-weight-bold">Synonyms:</span>
+                    {% for s in synonyms %}
+                    {{ s }},
+                    {% endfor %}
+                    <br>
+                    <span class="font-weight-bold">antonyms:</span>
+                    {% for a in antonyms %}
+                    {{ a }},
+                    {% endfor %}
+                </p>
+            </div>
+        </div>
+        {% else %}
+        <div class='text-center'>
+            <h2 style='text-transform: none;'>You have not looked up anything yet...</h2>
+            <h4 style='text-transform: none;'>Enter a word in the input box on the left now to translate your search
+            </h4>
+        </div>
+        {% endif %}
+
+    </div>
+</div>
+
+<script>
+    let btnReload = document.getElementById("btnReload");
+    let audioPlayer = document.getElementById("audioPlayer");
+    let volumeIcon = document.getElementById("volumeIcon");
+
+    btnReload.addEventListener("click", () => {
+        window.location = ("{% url 'dictionary' %}");
+    });
+
+    volumeIcon.addEventListener("click", () => {
+        audioPlayer.play()
+    });
+</script>
+
+{% endblock content%}

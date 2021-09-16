@@ -1,0 +1,23 @@
+{% extends 'common/base.html' %}
+{% block title %}- Profile{% endblock title %}
+{% block content %}
+<a href="{% url 'home' %}" class="bx bx-arrow-back text-dark"> Go to home</a>
+<hr class="mt-4 mb-4">
+<section class='text-center bg-light'>
+    <div class="p-0 mt-5">
+        <div class="m-3">
+            <h2>{{ request.user }}</h2>
+        </div>
+
+        <hr class="p-0 m-0">
+
+        <p class="description m-5 p-5">
+            <a href="{% url 'change_password' %}">
+                Click to Change Password
+            </a>
+        </p>
+
+        <hr>
+    </div>
+</section>
+{% endblock content %}
