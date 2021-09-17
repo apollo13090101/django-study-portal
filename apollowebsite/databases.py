@@ -17,7 +17,7 @@ DATABASES = {
 #         'ENGINE': 'django.db.backends.postgresql',
 #         'NAME': 'postgres',
 #         'USER': 'postgres',
-#         'PASSWORD': '1309',
+#         'PASSWORD': 'password',
 #         'HOST': 'localhost',
 #         'PORT': '5432',
 #     }
@@ -29,7 +29,7 @@ DATABASES = {
 #         'ENGINE': 'django.db.backends.mysql',
 #         'NAME': '',
 #         'USER': 'root',
-#         'PASSWORD': '1309',
+#         'PASSWORD': 'password',
 #         'HOST': 'localhost',
 #         'PORT': '3306',
 #     }
@@ -39,10 +39,10 @@ DATABASES = {
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'sql_server.pyodbc',
-#         'NAME': 'RMS',
-#         'USER': 'sa',
-#         'PASSWORD': '1309',
-#         'HOST': 'APOLLO',
+#         'NAME': 'databasename',
+#         'USER': 'username',
+#         'PASSWORD': 'password',
+#         'HOST': 'servername',
 #         'PORT': '',
 
 #         'OPTIONS': {
